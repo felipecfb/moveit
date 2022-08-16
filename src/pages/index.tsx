@@ -1,4 +1,5 @@
-import { Flex, Grid, Text } from "@chakra-ui/react";
+import { Flex, Grid } from "@chakra-ui/react";
+import CompleteChallenges from "../components/CompleteChallenges";
 import { ExperienceBar } from "../components/ExperienceBar";
 import { Profile } from "../components/Profile";
 
@@ -18,17 +19,17 @@ export default function Home() {
 
       <Grid
         flex="1"
+        w="100%"
         templateColumns="1fr 1fr"
         gap="6.25rem"
         alignContent="center"
       >
-        <Flex>
+        <Flex direction="column">
           <Profile />
+          <CompleteChallenges />
         </Flex>
 
-        <Flex>
-
-        </Flex>
+        <Flex></Flex>
       </Grid>
     </Flex>
   );
