@@ -1,10 +1,11 @@
+import { ReactNode } from "react";
 import {
   Button as ChakraButton,
   ButtonProps as ChakraButtonProps,
 } from "@chakra-ui/react";
 
 interface ButtonProps extends ChakraButtonProps {
-  children: string;
+  children: string | ReactNode;
   onClick?: () => void;
 }
 

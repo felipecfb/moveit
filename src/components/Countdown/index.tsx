@@ -1,4 +1,4 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Image, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Button } from "../Button";
 import { CountdownContainer } from "./CountdownContainer";
@@ -65,11 +65,13 @@ export function Countdown() {
           disabled
           bg="white"
           color="text"
+          borderBottom="4px solid green"
           _hover={{
             bg: "white",
           }}
         >
           Ciclo encerrado
+          <Image ml="4" src="/icons/check.svg" />
         </Button>
       ) : (
         <>
