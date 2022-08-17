@@ -11,7 +11,7 @@ export function ExperienceBar() {
     <Flex w="100%" align="center" mb="110px">
         <Text fontSize="1rem">0 xp</Text>
         <Progress flex="1" value={percentToNextLevel} colorScheme="whatsapp">
-          <ProgressLabel fontSize=".5rem">{currentExperience} xp</ProgressLabel>
+          <ProgressLabel fontSize=".5rem" color="text">{currentExperience} xp</ProgressLabel>
         </Progress>
         <Text>{experienceToNextLevel} xp</Text>
     </Flex>
