@@ -5,6 +5,7 @@ import CompleteChallenges from "../components/CompleteChallenges";
 import { Countdown } from "../components/Countdown";
 import { ExperienceBar } from "../components/ExperienceBar";
 import { Profile } from "../components/Profile";
+import { CountdownProvider } from "../context/CountdownContext";
 
 export default function Home() {
   return (
@@ -21,9 +22,9 @@ export default function Home() {
       <Head>
         <title>Início | move.it</title>
       </Head>
-      
+
       <ExperienceBar />
-      
+
       <Grid
         flex="1"
         w="100%"
@@ -31,15 +32,17 @@ export default function Home() {
         gap="6.25rem"
         alignContent="center"
       >
-        <Flex direction="column">
-          <Profile />
-          <CompleteChallenges />
-          <Countdown />
-        </Flex>
+        <CountdownProvider>
+          <Flex direction="column">
+            <Profile />
+            <CompleteChallenges />
+            <Countdown />
+          </Flex>
 
-        <Flex>
-          <ChallengeBox />
-        </Flex>
+          <Flex>
+            <ChallengeBox />
+          </Flex>
+        </CountdownProvider>
       </Grid>
     </Flex>
   );

@@ -1,10 +1,24 @@
 import { Flex, Grid, Image, Text } from "@chakra-ui/react";
 import { useContext } from "react";
 import { ChallengesContext } from "../../context/ChallengesContext";
+import { CountdownContext } from "../../context/CountdownContext";
 import { ChallengeBoxButton } from "./ChallengeBoxButton";
 
 export function ChallengeBox() {
-  const { hasChallenge, activeChallenge, resetChallenge, completeChallenge } = useContext(ChallengesContext);
+  const { hasChallenge, activeChallenge, resetChallenge } =
+    useContext(ChallengesContext);
+    const { resetCountdown } = useContext(CountdownContext);
+
+  function handleChangeSucceeded() {
+    resetChallenge();
+    resetCountdown();
+  }
+
+  function handleChallengeFailed() {
+    resetChallenge();
+    resetCountdown();
+  }
+
   return (
     <Flex
       h="100%"
@@ -49,12 +63,12 @@ export function ChallengeBox() {
             <ChallengeBoxButton
               title="Falhei"
               bg="red"
-              onClick={resetChallenge}
+              onClick={handleChallengeFailed}
             />
             <ChallengeBoxButton
               title="Completei"
               bg="green"
-              onClick={completeChallenge}
+              onClick={handleChangeSucceeded}
             />
           </Grid>
         </Flex>
