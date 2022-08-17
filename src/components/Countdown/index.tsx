@@ -3,9 +3,12 @@ import { useEffect, useState } from "react";
 import { CountdownContainer } from "./CountdownContainer";
 import { CountdownNumber } from "./CountdownNumber";
 
+let countdownTimeOut: NodeJS.Timeout;
+
 export function Countdown() {
-  const [time, setTime] = useState(25 * 60);
-  const [active, setActive] = useState(false);
+  const [time, setTime] = useState(0.1 * 60);
+  const [isActive, setIsActive] = useState(false);
+  const [hasFinished, setHasFinished] = useState(false);
 
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
@@ -14,16 +17,25 @@ export function Countdown() {
   const [secondLeft, secondRight] = String(seconds).padStart(2, "0").split("");
 
   function startCountdown() {
-    setActive(true);
+    setIsActive(true);
+  }
+
+  function resetCountdown() {
+    clearTimeout(countdownTimeOut);
+    setIsActive(false);
+    setTime(0.1 * 60);
   }
 
   useEffect(() => {
-    if (active && time > 0) {
-      setTimeout(() => {
+    if (isActive && time > 0) {
+      countdownTimeOut = setTimeout(() => {
         setTime(time - 1);
       }, 1000);
+    } else if (isActive && time === 0) {
+      setHasFinished(true);
+      setIsActive(false);
     }
-  }, [active, time]);
+  }, [isActive, time]);
 
   return (
     <Flex direction="column">
@@ -46,28 +58,81 @@ export function Countdown() {
           />
         </CountdownContainer>
       </Flex>
-      <Button
-        type="button"
-        w="100%"
-        h="5rem"
-        mt="2rem"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        border="0"
-        borderRadius="5px"
-        bg="blue"
-        color="white"
-        fontSize="1.25rem"
-        fontWeight="600"
-        transition=".2s"
-        _hover={{
-          bg: "blue_dark",
-        }}
-        onClick={startCountdown}
-      >
-        Iniciar um ciclo
-      </Button>
+
+      {hasFinished ? (
+        <Button
+          disabled
+          w="100%"
+          h="5rem"
+          mt="2rem"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          border="0"
+          borderRadius="5px"
+          bg="white"
+          color="text"
+          fontSize="1.25rem"
+          fontWeight="600"
+          transition=".2s"
+          _hover={{
+            bg: "white",
+          }}
+        >
+          Ciclo encerrado
+        </Button>
+      ) : (
+        <>
+          {isActive ? (
+            <Button
+              type="button"
+              w="100%"
+              h="5rem"
+              mt="2rem"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              border="0"
+              borderRadius="5px"
+              bg="white"
+              color="title"
+              fontSize="1.25rem"
+              fontWeight="600"
+              transition=".2s"
+              _hover={{
+                bg: "red",
+                color: "white",
+              }}
+              onClick={resetCountdown}
+            >
+              Abandonar ciclo
+            </Button>
+          ) : (
+            <Button
+              type="button"
+              w="100%"
+              h="5rem"
+              mt="2rem"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              border="0"
+              borderRadius="5px"
+              bg="blue"
+              color="white"
+              fontSize="1.25rem"
+              fontWeight="600"
+              transition=".2s"
+              _hover={{
+                bg: "blue_dark",
+              }}
+              onClick={startCountdown}
+            >
+              Iniciar um ciclo
+            </Button>
+          )}
+        </>
+      )}
     </Flex>
   );
 }
