@@ -1,5 +1,6 @@
 import { Flex, Image, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { ChallengesContext } from "../../context/ChallengesContext";
 import { Button } from "../Button";
 import { CountdownContainer } from "./CountdownContainer";
 import { CountdownNumber } from "./CountdownNumber";
@@ -7,6 +8,8 @@ import { CountdownNumber } from "./CountdownNumber";
 let countdownTimeOut: NodeJS.Timeout;
 
 export function Countdown() {
+  const { startNewChallenge } = useContext(ChallengesContext);
+
   const [time, setTime] = useState(0.1 * 60);
   const [isActive, setIsActive] = useState(false);
   const [hasFinished, setHasFinished] = useState(false);
@@ -35,6 +38,7 @@ export function Countdown() {
     } else if (isActive && time === 0) {
       setHasFinished(true);
       setIsActive(false);
+      startNewChallenge();
     }
   }, [isActive, time]);
 
