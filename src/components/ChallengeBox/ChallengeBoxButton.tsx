@@ -20,6 +20,9 @@ export function ChallengeBoxButton({ title, onClick, ...rest }: ChallengeBoxButt
       h="3rem"
       transition=".2s"
       onClick={onClick}
+      _hover={{
+        filter: "brightness(0.9)",
+      }}
       {...rest}
     >
       {title}
