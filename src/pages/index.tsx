@@ -1,5 +1,6 @@
 import { Flex, Grid } from "@chakra-ui/react";
 import Head from "next/head";
+import { ChallengeBox } from "../components/ChallengeBox";
 import CompleteChallenges from "../components/CompleteChallenges";
 import { Countdown } from "../components/Countdown";
 import { ExperienceBar } from "../components/ExperienceBar";
@@ -20,9 +21,9 @@ export default function Home() {
       <Head>
         <title>Início | move.it</title>
       </Head>
-
+      
       <ExperienceBar />
-
+      
       <Grid
         flex="1"
         w="100%"
@@ -36,7 +37,9 @@ export default function Home() {
           <Countdown />
         </Flex>
 
-        <Flex></Flex>
+        <Flex>
+          <ChallengeBox />
+        </Flex>
       </Grid>
     </Flex>
   );
