@@ -4,7 +4,7 @@ import { ChallengesContext } from "../../context/ChallengesContext";
 import { ChallengeBoxButton } from "./ChallengeBoxButton";
 
 export function ChallengeBox() {
-  const { hasChallenge, activeChallenge } = useContext(ChallengesContext);
+  const { hasChallenge, activeChallenge, resetChallenge } = useContext(ChallengesContext);
   return (
     <Flex
       h="100%"
@@ -49,7 +49,7 @@ export function ChallengeBox() {
             <ChallengeBoxButton
               title="Falhei"
               bg="red"
-              onClick={() => {}}
+              onClick={resetChallenge}
               _hover={{
                 filter: "brightness(0.9)",
               }}
