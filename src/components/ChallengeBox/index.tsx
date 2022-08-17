@@ -5,11 +5,12 @@ import { CountdownContext } from "../../context/CountdownContext";
 import { ChallengeBoxButton } from "./ChallengeBoxButton";
 
 export function ChallengeBox() {
-  const { hasChallenge, activeChallenge, resetChallenge } =
+  const { hasChallenge, activeChallenge, resetChallenge, completeChallenge } =
     useContext(ChallengesContext);
     const { resetCountdown } = useContext(CountdownContext);
 
   function handleChangeSucceeded() {
+    completeChallenge();
     resetChallenge();
     resetCountdown();
   }
