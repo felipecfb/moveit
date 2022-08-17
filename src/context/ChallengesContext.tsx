@@ -2,6 +2,8 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
 import challenges from "../../challenges.json";
+import { LevelUpModal } from "../components/LevelUpModal";
+import { useDisclosure } from "@chakra-ui/react";
 
 interface ChallengesProviderProps {
   children: ReactNode;
@@ -23,6 +25,7 @@ interface ChallengesContextProps {
   hasChallenge: boolean;
   activeChallenge: Challenge;
   experienceToNextLevel: number;
+  setIsLevelUpModalOpen: (hasLevelUp: boolean) => void;
   levelUp: () => void;
   startNewChallenge: () => void;
   resetChallenge: () => void;
@@ -35,7 +38,10 @@ export function ChallengesProvider({
   children,
   ...rest
 }: ChallengesProviderProps) {
+  const { onOpen } = useDisclosure();
+
   const [level, setLevel] = useState(rest.level ?? 1);
+  const [isLevelUpModalOpen, setIsLevelUpModalOpen] = useState(false);
   const [currentExperience, setCurrentExperience] = useState(
     rest.currentExperience ?? 0
   );
@@ -60,6 +66,7 @@ export function ChallengesProvider({
 
   function levelUp() {
     setLevel(level + 1);
+    setIsLevelUpModalOpen(true);
   }
 
   function startNewChallenge() {
@@ -93,6 +100,7 @@ export function ChallengesProvider({
     if (finalExperience >= experienceToNextLevel) {
       finalExperience = finalExperience - experienceToNextLevel;
       levelUp();
+      onOpen();
     }
     setCurrentExperience(finalExperience);
 
@@ -115,9 +123,11 @@ export function ChallengesProvider({
         resetChallenge,
         experienceToNextLevel,
         completeChallenge,
+        setIsLevelUpModalOpen,
       }}
     >
       {children}
+      <LevelUpModal isOpen={isLevelUpModalOpen} />
     </ChallengesContext.Provider>
   );
 }
