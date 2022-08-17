@@ -1,5 +1,6 @@
-import { Button, Flex, Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { Button } from "../Button";
 import { CountdownContainer } from "./CountdownContainer";
 import { CountdownNumber } from "./CountdownNumber";
 
@@ -62,19 +63,8 @@ export function Countdown() {
       {hasFinished ? (
         <Button
           disabled
-          w="100%"
-          h="5rem"
-          mt="2rem"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          border="0"
-          borderRadius="5px"
           bg="white"
           color="text"
-          fontSize="1.25rem"
-          fontWeight="600"
-          transition=".2s"
           _hover={{
             bg: "white",
           }}
@@ -86,19 +76,8 @@ export function Countdown() {
           {isActive ? (
             <Button
               type="button"
-              w="100%"
-              h="5rem"
-              mt="2rem"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              border="0"
-              borderRadius="5px"
               bg="white"
               color="title"
-              fontSize="1.25rem"
-              fontWeight="600"
-              transition=".2s"
               _hover={{
                 bg: "red",
                 color: "white",
@@ -110,19 +89,8 @@ export function Countdown() {
           ) : (
             <Button
               type="button"
-              w="100%"
-              h="5rem"
-              mt="2rem"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              border="0"
-              borderRadius="5px"
               bg="blue"
               color="white"
-              fontSize="1.25rem"
-              fontWeight="600"
-              transition=".2s"
               _hover={{
                 bg: "blue_dark",
               }}
