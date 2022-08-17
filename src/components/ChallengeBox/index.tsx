@@ -1,9 +1,10 @@
-import { Button, Flex, Grid, Image, Text } from "@chakra-ui/react";
+import { Flex, Grid, Image, Text } from "@chakra-ui/react";
+import { useContext } from "react";
+import { ChallengesContext } from "../../context/ChallengesContext";
 import { ChallengeBoxButton } from "./ChallengeBoxButton";
 
 export function ChallengeBox() {
-  const hasActiveChallenge = true;
-
+  const { hasChallenge, activeChallenge } = useContext(ChallengesContext);
   return (
     <Flex
       h="100%"
@@ -17,7 +18,7 @@ export function ChallengeBox() {
       justify="center"
       textAlign="center"
     >
-      {hasActiveChallenge ? (
+      {hasChallenge ? (
         <Flex h="100%" direction="column">
           <Text
             color="blue"
@@ -28,10 +29,10 @@ export function ChallengeBox() {
             borderBottom="1px solid"
             borderColor="gray_line"
           >
-            Ganhe 400 de xp
+            Ganhe {activeChallenge.amount} de xp
           </Text>
           <Flex flex="1" direction="column" align="center" justify="center">
-            <Image src="icons/body.svg" />
+            <Image src={`icons/${activeChallenge.type}.svg`} />
             <Text
               fontWeight="600"
               fontSize="2rem"
@@ -41,9 +42,7 @@ export function ChallengeBox() {
             >
               Novo desafio
             </Text>
-            <Text lineHeight="1.5">
-              Levante e faça uma caminhada de 3 minutos.
-            </Text>
+            <Text lineHeight="1.5">{activeChallenge.description}</Text>
           </Flex>
 
           <Grid templateColumns="1fr 1fr" gap="1rem">
