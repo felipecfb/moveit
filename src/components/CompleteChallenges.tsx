@@ -1,6 +1,10 @@
 import { Flex, Text } from "@chakra-ui/react";
+import { useContext } from "react";
+import { ChallengesContext } from "../context/ChallengesContext";
 
 export default function CompleteChallenges() {
+  const { challengesCompleted } = useContext(ChallengesContext);
+
   return (
     <Flex
       align="center"
@@ -11,7 +15,7 @@ export default function CompleteChallenges() {
       fontWeight="500"
     >
       <Text fontSize="1.25rem">Desafios completos</Text>
-      <Text fontSize="1.5rem">5</Text>
+      <Text fontSize="1.5rem">{challengesCompleted}</Text>
     </Flex>
   );
 }
