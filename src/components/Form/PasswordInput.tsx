@@ -18,7 +18,7 @@ export function PasswordInput({ ...rest }: InputProps) {
   }
 
   return (
-    <FormControl>
+    <>
       <FormLabel htmlFor="password">Password</FormLabel>
       <InputGroup>
         <InputRightElement>
@@ -38,6 +38,6 @@ export function PasswordInput({ ...rest }: InputProps) {
           {...rest}
         />
       </InputGroup>
-    </FormControl>
+    </>
   );
 }

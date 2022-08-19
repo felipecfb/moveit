@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useContext } from "react";
 import {
   Box,
   Button,
@@ -10,18 +10,24 @@ import {
   Icon,
   Image,
   Input,
+  Link,
   Stack,
   Text,
   useBreakpointValue,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { PasswordInput } from "../components/Form/PasswordInput";
-import { LoginWithSocial } from "../components/Form/LoginWithSocial";
 
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 
+import { AuthContext } from "../../context/AuthContext";
+
+import { PasswordInput } from "../../components/Form/PasswordInput";
+import { LoginWithSocial } from "../../components/Form/LoginWithSocial";
+
 export default function Login() {
+  const { loginWithGithub } = useContext(AuthContext);
+
   return (
     <Container
       maxW="lg"
@@ -37,9 +43,11 @@ export default function Login() {
             </Text>
             <HStack spacing="1" justify="center">
               <Text color="muted">Don't have an account?</Text>
-              <Button variant="link" color="blue">
-                Sign up
-              </Button>
+              <Link href="/user/register">
+                <Button variant="link" color="blue">
+                  Sign up
+                </Button>
+              </Link>
             </HStack>
           </Stack>
         </Stack>
@@ -55,8 +63,8 @@ export default function Login() {
               <FormControl>
                 <FormLabel htmlFor="email">Email</FormLabel>
                 <Input id="email" type="email" />
+                <PasswordInput />
               </FormControl>
-              <PasswordInput />
             </Stack>
             <HStack justify="space-between">
               <Button variant="link" color="blue_dark" size="sm">
@@ -83,10 +91,12 @@ export default function Login() {
               <LoginWithSocial
                 icon={<Icon as={AiFillGithub} w={7} h={7} />}
                 title="Github"
+                onClick={loginWithGithub}
               />
               <LoginWithSocial
                 icon={<Icon as={FcGoogle} w={7} h={7} />}
                 title="Google"
+                onClick={loginWithGithub}
               />
             </Stack>
           </Stack>

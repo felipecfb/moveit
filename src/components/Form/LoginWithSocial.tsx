@@ -1,10 +1,10 @@
 import { Button, ButtonProps, Text } from "@chakra-ui/react";
-import { ReactNode } from "react";
+import { FormEvent, ReactNode } from "react";
 
 interface LoginWithSocialProps extends ButtonProps {
   icon: ReactNode;
   title: string;
-  onClick?: () => void;
+  onClick: (e: FormEvent) => Promise<void>;
 }
 
 export function LoginWithSocial({ title, icon, onClick, ...rest }: LoginWithSocialProps) {
