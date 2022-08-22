@@ -11,8 +11,14 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
+type User = {
+  displayName: string | null;
+  email: string | null;
+  photoURL: string | null;
+}
+
 interface AuthContextProps {
-  loginWithGithub: (e: FormEvent) => Promise<void>;
+  loginWithGithub: (e: FormEvent) => Promise<User | undefined>;
 }
 
 export const AuthContext = createContext({} as AuthContextProps);
@@ -31,14 +37,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
       const token = credential?.accessToken;
 
       if (token) {
-        if (Cookies.get("AuthToken") !== token) {
+        if (Cookies.get("user_session")) {
           navigate.push("/");
           return;
         } else {
-          Cookies.set("AuthToken", token);
+          Cookies.set("user_session", token, { expires: 1 });
           navigate.push("/");
         }
       }
+
+      return result.user;
+
     } catch (error: any) {
       const errorCode = error.code;
       const errorMessage = error.message;

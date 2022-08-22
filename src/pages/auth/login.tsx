@@ -24,6 +24,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 import { PasswordInput } from "../../components/Form/PasswordInput";
 import { LoginWithSocial } from "../../components/Form/LoginWithSocial";
+import { GetServerSideProps } from "next";
 
 export default function Login() {
   const { loginWithGithub } = useContext(AuthContext);
@@ -105,3 +106,17 @@ export default function Login() {
     </Container>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { cookies } = ctx.req;
+
+  if (cookies.user_session) {
+    ctx.res.writeHead(302, {
+      Location: "/",
+    });
+  }
+
+  return {
+    props: {},
+  };
+};

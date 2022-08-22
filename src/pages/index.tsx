@@ -63,11 +63,16 @@ export default function Home(props: HomeProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  
+  const { user_session } = ctx.req.cookies;
+
+  if (!user_session) {
+    ctx.res.writeHead(302, {
+      Location: "/auth/login",
+    });
+    ctx.res.end();
+  }
 
   return {
-    props: {
-      
-    },
+    props: {},
   };
 };
