@@ -4,6 +4,9 @@ import Cookies from "js-cookie";
 import challenges from "../../challenges.json";
 import { LevelUpModal } from "../components/LevelUpModal";
 import { useDisclosure } from "@chakra-ui/react";
+import { getAuth } from "firebase/auth";
+import { app, db } from "../services/firebase";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 interface ChallengesProviderProps {
   children: ReactNode;
@@ -62,6 +65,15 @@ export function ChallengesProvider({
     Cookies.set("level", String(level));
     Cookies.set("currentExperience", String(currentExperience));
     Cookies.set("challengesCompleted", String(challengesCompleted));
+
+    const userId = Cookies.get("user_id");
+    const userRef = doc(db, "users", userId!);
+
+    updateDoc(userRef, {
+      level: level,
+      currentExperience: currentExperience,
+      challengesCompleted: challengesCompleted,
+    });
   }, [level, currentExperience, challengesCompleted]);
 
   function levelUp() {
