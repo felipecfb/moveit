@@ -18,7 +18,7 @@ type User = {
 }
 
 interface AuthContextProps {
-  loginWithGithub: (e: FormEvent) => Promise<User | undefined>;
+  loginWithGithub: (e: FormEvent) => Promise<void>;
 }
 
 export const AuthContext = createContext({} as AuthContextProps);
@@ -45,8 +45,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
           navigate.push("/");
         }
       }
-
-      return result.user;
 
     } catch (error: any) {
       const errorCode = error.code;

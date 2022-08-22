@@ -1,16 +1,10 @@
 import { Button, ButtonProps, Text } from "@chakra-ui/react";
 import { FormEvent, ReactNode } from "react";
 
-type User = {
-  displayName: string | null;
-  email: string | null;
-  photoURL: string | null;
-}
-
 interface LoginWithSocialProps extends ButtonProps {
   icon: ReactNode;
   title: string;
-  onClick: (e: FormEvent) => Promise<User | undefined>;
+  onClick: (e: FormEvent) => Promise<void>;
 }
 
 export function LoginWithSocial({ title, icon, onClick, ...rest }: LoginWithSocialProps) {
