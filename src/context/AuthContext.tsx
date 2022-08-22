@@ -1,9 +1,9 @@
-import { createContext, FormEvent, ReactNode } from "react";
+import { createContext, FormEvent, ReactNode, useState } from "react";
 
 import { getAuth, GithubAuthProvider, signInWithPopup } from "firebase/auth";
 
-import { app } from "../services/firebase";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { app, db } from "../services/firebase";
+import { setDoc, doc } from "firebase/firestore";
 
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
@@ -11,12 +11,6 @@ import { useRouter } from "next/router";
 interface AuthProviderProps {
   children: ReactNode;
 }
-
-type User = {
-  displayName: string | null;
-  email: string | null;
-  photoURL: string | null;
-};
 
 interface AuthContextProps {
   loginWithGithub: (e: FormEvent) => Promise<void>;
@@ -28,7 +22,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const navigate = useRouter();
 
   const auth = getAuth(app);
-  const db = getFirestore(app);
 
   async function loginWithGithub(e: FormEvent) {
     e.preventDefault();
@@ -41,7 +34,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
       const user = result.user;
 
       const userData = {
-        id: user.uid,
         displayName: user.displayName,
         email: user.email,
         photoURL: user.photoURL,
@@ -49,8 +41,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
         currentExperience: 0,
         challengesCompleted: 0,
       };
-
-      await addDoc(collection(db, "users"), userData);
 
       if (token) {
         if (Cookies.get("user_session")) {
@@ -61,6 +51,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
           navigate.push("/");
         }
       }
+
+      Cookies.set("user_id", user.uid);
+
+      await setDoc(doc(db, "users", user.uid), userData);
     } catch (error: any) {
       const errorCode = error.code;
       const errorMessage = error.message;
