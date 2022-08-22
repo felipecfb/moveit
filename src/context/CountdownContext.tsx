@@ -56,7 +56,7 @@ export function CountdownProvider({ children }: CountdownProviderProps) {
       setIsActive(false);
       startNewChallenge();
     }
-  }, [isActive, time]);
+  }, [isActive, time, startNewChallenge]);
 
   return (
     <CountdownContext.Provider

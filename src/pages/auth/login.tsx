@@ -38,12 +38,12 @@ export default function Login() {
       <Stack spacing="8">
         <Stack spacing="6">
           <Stack spacing={{ base: "2", md: "3" }} textAlign="center">
-            <Image src="/logo-full.svg" maxW="300px" mx="auto" />
+            <Image src="/logo-full.svg" maxW="300px" mx="auto" alt="Logo" />
             <Text fontSize="2rem" fontWeight="500">
               Log in to your account
             </Text>
             <HStack spacing="1" justify="center">
-              <Text color="muted">Don't have an account?</Text>
+              <Text color="muted">Don&apos;t have an account?</Text>
               <Link href="/user/register">
                 <Button variant="link" color="blue">
                   Sign up

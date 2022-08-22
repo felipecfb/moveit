@@ -35,7 +35,7 @@ export function LevelUpModal({ isOpen }: LevelUpModalProps) {
           textAlign="center"
         >
           <Button type="button" onClick={() => setIsLevelUpModalOpen(false)} bg="transparent" border="0" position="absolute" right="5px" top="5px">
-              <Image src="/icons/close.svg" />
+              <Image src="/icons/close.svg" alt="Close icon" />
           </Button>
           <ModalHeader
             fontSize="8.75rem"

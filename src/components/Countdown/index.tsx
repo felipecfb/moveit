@@ -51,7 +51,7 @@ export function Countdown() {
           }}
         >
           Ciclo encerrado
-          <Image ml="4" src="/icons/check.svg" />
+          <Image ml="4" src="/icons/check.svg" alt="Check icon" />
         </Button>
       ) : (
         <>

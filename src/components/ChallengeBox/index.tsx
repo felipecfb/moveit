@@ -47,7 +47,7 @@ export function ChallengeBox() {
             Ganhe {activeChallenge.amount} de xp
           </Text>
           <Flex flex="1" direction="column" align="center" justify="center">
-            <Image src={`icons/${activeChallenge.type}.svg`} />
+            <Image src={`icons/${activeChallenge.type}.svg`} alt="Active Challenge Image" />
             <Text
               fontWeight="600"
               fontSize="2rem"
@@ -85,7 +85,7 @@ export function ChallengeBox() {
             maxWidth="70%"
             mt="3rem"
           >
-            <Image src="/icons/level-up.svg" mb="1" />
+            <Image src="/icons/level-up.svg" mb="1" alt="Levelup Image" />
             <Text>Avance de level completando desafios.</Text>
           </Flex>
         </Flex>
