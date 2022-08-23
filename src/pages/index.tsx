@@ -1,4 +1,4 @@
-import { Flex, Grid, Text } from "@chakra-ui/react";
+import { Flex, Grid, Icon, Text } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { ChallengeBox } from "../components/ChallengeBox";
@@ -12,6 +12,10 @@ import { CountdownProvider } from "../context/CountdownContext";
 import { db } from "../services/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
+import { BiLogOut } from "react-icons/bi";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+
 type User = {
   user: {
     displayName: string;
@@ -24,6 +28,8 @@ type User = {
 };
 
 export default function Home({ user }: User) {
+  const { signOut } = useContext(AuthContext);
+
   return (
     <ChallengesProvider
       level={user.level}
@@ -59,6 +65,19 @@ export default function Home({ user }: User) {
                 avatar={user.photoURL}
                 name={user.displayName}
                 level={user.level}
+                signOut={
+                  user && (
+                    <Icon
+                      w="100%"
+                      color="text"
+                      as={BiLogOut}
+                      _hover={{
+                        color: "red",
+                      }}
+                    />
+                  )
+                }
+                onClick={signOut}
               />
               <CompleteChallenges />
               <Countdown />

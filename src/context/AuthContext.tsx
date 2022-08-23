@@ -14,6 +14,7 @@ interface AuthProviderProps {
 
 interface AuthContextProps {
   loginWithGithub: (e: FormEvent) => Promise<void>;
+  signOut: () => void;
 }
 
 export const AuthContext = createContext({} as AuthContextProps);
@@ -64,10 +65,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
+  function signOut() {
+    Cookies.remove("user_id");
+    Cookies.remove("user_session");
+    navigate.push("/auth/login");
+  }
+
   return (
     <AuthContext.Provider
       value={{
         loginWithGithub,
+        signOut,
       }}
     >
       {children}
