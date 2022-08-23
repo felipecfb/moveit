@@ -15,6 +15,8 @@ import { doc, getDoc } from "firebase/firestore";
 import { BiLogOut } from "react-icons/bi";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 type User = {
   user: {
@@ -29,7 +31,7 @@ type User = {
 
 export default function Home({ user }: User) {
   const { signOut } = useContext(AuthContext);
-
+  
   return (
     <ChallengesProvider
       level={user.level}
@@ -97,10 +99,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { user_session, user_id } = ctx.req.cookies;
 
   if (!user_session) {
-    ctx.res.writeHead(302, {
-      Location: "/auth/login",
-    });
-    ctx.res.end();
+    return {
+      redirect: {
+        destination: "/auth/login",
+        permanent: false,
+      },
+    };
   }
 
   const userRef = doc(db, "users", user_id!);
