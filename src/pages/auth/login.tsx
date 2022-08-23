@@ -27,7 +27,7 @@ import { LoginWithSocial } from "../../components/Form/LoginWithSocial";
 import { GetServerSideProps } from "next";
 
 export default function Login() {
-  const { loginWithGithub } = useContext(AuthContext);
+  const { loginWithGoogle, loginWithGithub } = useContext(AuthContext);
 
   return (
     <Container
@@ -97,7 +97,7 @@ export default function Login() {
               <LoginWithSocial
                 icon={<Icon as={FcGoogle} w={7} h={7} />}
                 title="Google"
-                onClick={loginWithGithub}
+                onClick={loginWithGoogle}
               />
             </Stack>
           </Stack>
