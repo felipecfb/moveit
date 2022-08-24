@@ -12,6 +12,7 @@ import { setDoc, doc } from "firebase/firestore";
 
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+import { createStandaloneToast } from "@chakra-ui/react";
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -27,6 +28,8 @@ export const AuthContext = createContext({} as AuthContextProps);
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const navigate = useRouter();
+
+  const { toast } = createStandaloneToast();
 
   const auth = getAuth(app);
 
@@ -109,7 +112,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
       const errorMessage = error.message;
       const email = error.email;
       const credential = GithubAuthProvider.credentialFromError(error);
-      console.log(errorCode, errorMessage);
+      if (errorMessage === 'Firebase: Error (auth/account-exists-with-different-credential).') {
+        toast({
+          title: "Error",
+          description: 'With account exists with different credential (Email or Google).',
+          status: "error",
+          position: 'top-right',
+        })
+      }
+
+      console.log(errorMessage);
+      
     }
   }
 

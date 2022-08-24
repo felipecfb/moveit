@@ -29,8 +29,13 @@ type User = {
   };
 };
 
-export default function Home({ user }: User) {
+export default function Home({ user }: User, user_session: String) {
   const { signOut } = useContext(AuthContext);
+  const navigate = useRouter();
+
+  if (!user_session) {
+    navigate.push('/auth/login')
+  }
   
   return (
     <ChallengesProvider
@@ -97,15 +102,18 @@ export default function Home({ user }: User) {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { user_session, user_id } = ctx.req.cookies;
-
+  
   if (!user_session) {
     return {
       redirect: {
         destination: "/auth/login",
         permanent: false,
-      },
-    };
+      }
+    }
   }
+
+  console.log(user_session, user_id);
+  
 
   const userRef = doc(db, "users", user_id!);
   const userDoc = await getDoc(userRef);
@@ -114,6 +122,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: {
       user,
+      user_session,
     },
   };
 };
