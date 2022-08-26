@@ -112,9 +112,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
   }
 
-  console.log(user_session, user_id);
-  
-
   const userRef = doc(db, "users", user_id!);
   const userDoc = await getDoc(userRef);
   const user = userDoc.data();
