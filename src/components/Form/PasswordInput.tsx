@@ -10,7 +10,7 @@ import {
 import { HiEye, HiEyeOff } from "react-icons/hi";
 
 interface PasswordInputProps extends InputProps {
-  value: string;
+  value?: string;
 }
 
 export function PasswordInput({ value, ...rest }: PasswordInputProps) {

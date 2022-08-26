@@ -44,7 +44,7 @@ export default function Login() {
             </Text>
             <HStack spacing="1" justify="center">
               <Text color="muted">Don&apos;t have an account?</Text>
-              <Link href="/user/register">
+              <Link href="/auth/register">
                 <Button variant="link" color="blue">
                   Sign up
                 </Button>
