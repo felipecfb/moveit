@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { RefObject, useState } from "react";
 import {
-  FormControl,
   FormLabel,
   IconButton,
   Input,
@@ -10,7 +9,11 @@ import {
 } from "@chakra-ui/react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 
-export function PasswordInput({ ...rest }: InputProps) {
+interface PasswordInputProps extends InputProps {
+  value: string;
+}
+
+export function PasswordInput({ value, ...rest }: PasswordInputProps) {
   const [showPassword, setShowPassword] = useState(false);
 
   function revealPassowrd() {
@@ -35,6 +38,7 @@ export function PasswordInput({ ...rest }: InputProps) {
           type={showPassword ? "text" : "password"}
           autoComplete="current-password"
           required
+          value={value}
           {...rest}
         />
       </InputGroup>
